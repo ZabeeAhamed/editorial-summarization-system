@@ -1,0 +1,54 @@
+# Models (too large - 230MB)
+models/
+models/
+*.bin
+*.pth
+*.pt
+*.safetensors
+
+# Images (196 files, too many)
+newspaper_images/
+*.jpeg
+*.jpg
+*.png
+*.JPEG
+*.JPG
+*.PNG
+
+# Data files
+dataset_output/
+data/*.csv
+data/*.xlsx
+*.csv
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Streamlit
+.streamlit/
+EOF
