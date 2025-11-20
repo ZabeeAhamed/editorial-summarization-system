@@ -1,11 +1,3 @@
-"""
-Interactive Demo App for Editorial Summarization System
-Streamlit web interface - OFFLINE MODE (uses local models only)
-
-Author: ZabeeAhmed
-Date: 2025-11-19 12:50:15 UTC
-"""
-
 import streamlit as st
 import torch
 from transformers import T5Tokenizer, T5ForConditionalGeneration
@@ -26,15 +18,14 @@ st.set_page_config(
 # Cache model loading
 @st.cache_resource
 def load_models():
-    """Load fine-tuned model only (offline mode)"""
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     
     try:
-        # Only load fine-tuned model (already local)
+        # Only load fine-tuned model
         model_path = '../models/finetuned_editorial_t5'
         
         if not Path(model_path).exists():
-            st.error(f"❌ Model not found at: {model_path}")
+            st.error(f"Model not found at: {model_path}")
             st.info("Please ensure the fine-tuned model is in the correct location.")
             return None
         
@@ -54,7 +45,6 @@ def load_models():
         return None
 
 def generate_summary(model, tokenizer, text, device, max_length=150):
-    """Generate summary"""
     input_text = f"summarize: {text}"
     
     inputs = tokenizer(
@@ -99,7 +89,7 @@ with st.sidebar:
     
     st.markdown("---")
     
-    st.header("🎯 Project Info")
+    st.header("Project Info")
     st.markdown("""
     **Dataset:** 87 Indian newspaper editorials
     
@@ -118,7 +108,7 @@ with st.sidebar:
     
     st.header("🔗 Links")
     st.markdown("📁 [GitHub Repository](https://github.com/ZabeeAhamed)")
-    st.markdown("💼 [LinkedIn](https://linkedin.com/in/zabeeahmed)")
+    st.markdown("💼 [LinkedIn](www.linkedin.com/in/velavali-shaik-zabee-ahamed)")
 
 # Main content
 tab1, tab2, tab3 = st.tabs(["🚀 Generate Summary", "📝 Examples", "ℹ️ About"])
@@ -142,7 +132,7 @@ with tab1:
     )
     
     # Generate button
-    if st.button("🎯 Generate Summary", type="primary"):
+    if st.button("Generate Summary", type="primary"):
         if not article_input or len(article_input.split()) < 50:
             st.error("⚠️ Please enter at least 50 words for meaningful summarization.")
         else:
@@ -157,7 +147,7 @@ with tab1:
                 st.markdown("---")
                 
                 # Generate summary
-                st.markdown("### 🟢 Generated Summary (Fine-tuned T5)")
+                st.markdown("###Generated Summary (Fine-tuned T5)")
                 
                 try:
                     summary = generate_summary(
@@ -181,9 +171,9 @@ with tab1:
                     st.error(f"Error generating summary: {e}")
 
 with tab2:
-    st.markdown("### 📝 Sample Summaries")
+    st.markdown("###Sample Summaries")
     
-    st.info("💡 **Tip:** Click 'Load Sample Article' in the Generate tab to try a real example!")
+    st.info("**Tip:** Click 'Load Sample Article' in the Generate tab to try a real example!")
     
     # Example articles
     examples = [
@@ -207,7 +197,7 @@ with tab2:
             st.info(example['summary'])
 
 with tab3:
-    st.markdown("### ℹ️ About This Project")
+    st.markdown("### About This Project")
     
     st.markdown("""
     ## Editorial Summarization System
@@ -220,8 +210,7 @@ with tab3:
     - ✅ **Domain-Specific Training:** Fine-tuned on 87 real Indian newspaper editorials
     - ✅ **Massive Improvement:** 156-273% better than baseline T5 model
     - ✅ **Production-Ready:** Complete ML pipeline from OCR to deployment
-    - ✅ **Offline Capable:** Works without internet connection
-    
+
     ### 🛠️ Technical Stack
     
     - **Model:** T5-small (60M parameters)
